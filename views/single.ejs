@@ -1,0 +1,35 @@
+<%- include('_head') %>
+    <title><%= article.title %></title>
+</head>
+<body>
+    <%- include('_nav') %>
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center">
+        <a href="/list">Back</a>
+        <div class="col-8">
+          <div class="card shadow">
+            <img src="/uploads/images/<%= article.img %>" class="card-img-top" alt="postImage" />
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= article.title %>
+              </h5>
+              <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+              <p class="card-text text-secondary">
+                <%= article.description %>
+              </p>
+              <p>
+                <%- article.sanitizedHtml %>
+              </p>
+              <small class="text-secondary d-flex justify-content-end">
+                Publish: <%= article.createdAt.toLocaleDateString() %>
+              </small>
+              <hr />
+              <div class="d-flex justify-content-end align-items-end">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

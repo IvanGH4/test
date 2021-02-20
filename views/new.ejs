@@ -1,0 +1,34 @@
+<%- include('_head') %>
+    <title>New Article</title>
+</head>
+<body>
+    <%- include('_nav') %>
+    <div class="container">
+        <h1 class="text-center">New Post</h1>
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <form action="/articles" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="my-2" for="title">Title</label>
+                        <input autocomplete="off" required  type="text" name="title" id="title" class="form-control" placeholder="Title of your article">
+                    </div>
+                    <div class="form-group">
+                        <label class="my-2" for="description">Description</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="my-2" for="markdown">Markdown</label>
+                        <textarea required name="markdown" id="markdown" class="form-control" placeholder="Write markdown"></textarea>
+                        <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">How to write Markdown?</a>
+                    </div>
+                    <div class="form-group">
+                        <label class="my-2" for="image">Upload an Image</label>
+                        <input class="form-control" type="file" name="image" id="image" />
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<%- include('_head') %>
+    <title>Articles</title>
+</head>
+<body>
+    <%- include('_nav') %>
+    <div class="container py-4">
+        <h1 class="text-center mb-5">List of Posts</h1>
+        <div class="row d-flex justify-content-center">
+            <div class="col-8">
+                <% articles.forEach((article) => { %>
+                    <div class="card mb-3 shadow">
+                        <div class="card-body">
+                          <div class="d-flex align-items-center">
+                            <% if(article.img) { %>
+                              <img class="rounded" src="/uploads/images/<%= article.img %>" width="70" height="70" alt="postImage" />
+                            <% } %>
+                            <h5 class="card-title">
+                              <%= article.title %>
+                            </h5>
+                          </div>
+                            <small class="text-secondary">
+                                <%= article.createdAt.toLocaleDateString() %>
+                            </small>
+                            <hr />
+                          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                          <p class="card-text text-dark">
+                            <%= article.description %>
+                          </p>
+                          <!-- <p>
+                            <%- article.sanitizedHtml %>
+                          </p> -->
+                          <a href="articles/<%= article.id %>" class="btn btn-primary d-block">Read More</a>
+                        <form action="/articles/<%= article.id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                        </form>
+                          <!-- <a href="#" class="card-link">Card link</a>
+                          <a href="#" class="card-link">Another link</a> -->
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
