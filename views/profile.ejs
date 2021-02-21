@@ -4,4 +4,23 @@
 
 <body>
     <%- include('_nav') %>
+    <div class="container py-2">
+        <div class="card mb-3 mx-auto shadow-sm" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4 p-2 d-flex align-items-center">
+                <img class="rounded" src="<%= user.picture %>" alt="userPic" />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">
+                      <%= user.name %>
+                  </h5>
+                  <a class="btn btn-primary" href="/logout">
+                    Log out
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
 </body>

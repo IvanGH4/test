@@ -25,9 +25,15 @@ let articleSchema = new Schema({
         type: String,
         required: true
     },
+    userPerson: {
+        type: String,
+    },
+    userPic: {
+        type: String,
+    },
     img: {
         type: String
-    }
+    },
 });
 
 articleSchema.pre('validate', function(next) {

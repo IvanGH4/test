@@ -12,19 +12,19 @@ const methodOverride = require('method-override');
 
 require('dotenv').config();
 
-// const { auth, requiresAuth } = require('express-openid-connect');
+const { auth, requiresAuth } = require('express-openid-connect');
 
-// app.use(
-//   auth({
-//     authRequired: false,
-//     auth0Logout: true,
-//     issuerBaseURL: process.env.ISSUER_BASE_URL,
-//     baseURL: process.env.BASE_URL,
-//     clientID: process.env.CLIENT_ID,
-//     secret: process.env.SECRET,
-//     // idpLogout: true,
-//   })
-// );
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    secret: process.env.SECRET,
+    // idpLogout: true,
+  })
+);
 
 app.set('view engine', 'ejs');
 
@@ -34,18 +34,18 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', {user: req.oidc.user});
 });
 
-// app.get('/profile',  (req, res) => {
-//     res.render('profile');
-// }); 
+app.get('/profile',  (req, res) => {
+    res.render('profile', {user: req.oidc.user});
+}); 
 
 app.get('/list', async (req, res) => {
     try {
         const articles = await Article.find()
                             .sort({createdAt: 'desc'});
-        res.render('list', {articles: articles});    
+        res.render('list', {articles: articles, user: req.oidc.user});    
     } catch (error) {
         res.status(400).json({ message: 'an error occured!'});
     }

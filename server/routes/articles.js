@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Article = require('../models/article');
 
-// const { requiresAuth } = require('express-openid-connect');
+const { requiresAuth } = require('express-openid-connect');
 
 const multer = require('multer');
 // define storage for imgs
@@ -24,12 +24,12 @@ const upload = multer({
     }
 });
 
-router.get('/new', (req, res) => {
-    res.render('new');
+router.get('/new', requiresAuth(), (req, res) => {
+    res.render('new', {user: req.oidc.user});
 });
 
 router.get('/', (req, res) => {
-    res.render('list');
+    res.render('list', {user: req.oidc.user});
 });
 
 router.get('/:id', (req, res) => {
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
                     });
                 }
 
-                res.render('single', {article: articleDB});
+                res.render('single', {article: articleDB, user: req.oidc.user});
             });
 });
 
@@ -66,10 +66,9 @@ router.post('/', upload.single('image'), async (req, res) => {
         title: body.title,
         description: body.description,
         markdown: body.markdown,
-        // user: req.oidc.user.email,
-        // userPic: req.oidc.user.picture,
-        // userName: req.oidc.user.name,
-        img: req.file.filename
+        img: req.file.filename,
+        userPerson: req.oidc.user.email,
+        userPic: req.oidc.user.picture
     });
 
     try {
@@ -83,40 +82,40 @@ router.post('/', upload.single('image'), async (req, res) => {
 
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async(req, res) => {
 
     let id = req.params.id;
 
+    let article = await Article.findById(id);
+    if(req.oidc.user.email != article.userPerson) {
+        return res.status(400).json({
+            ok: false,
+            err: {
+                message: 'You do not have permissions to delete this article'
+            }
+        });
+    } else {
+        Article.findByIdAndRemove(id, (err, articleDB) => {
+            if(err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
+            }
     
-    Article.findByIdAndRemove(id, (err, articleDB) => {
-        if(err) {
-            return res.status(500).json({
-                ok: false,
-                err
-            });
-        }
-
-        // if(req.oidc.user.email !== articleDB.user) {
-        //     return res.status(400).json({
-        //         ok: false,
-        //         err: {
-        //             message: 'You do not have permissions to delete this article'
-        //         }
-        //     });
-        // }
-
-        if(!articleDB) {
-            return res.status(400).json({
-                ok: false,
-                err: {
-                    message: 'Id does not exists'
-                }
-            });
-        }
-
-        res.redirect('/');
-    });
-
+            if(!articleDB) {
+                return res.status(400).json({
+                    ok: false,
+                    err: {
+                        message: 'Id does not exists'
+                    }
+                });
+            }
+    
+            res.redirect('/');
+        });
+    }
+    
 }); 
 
 module.exports = router;

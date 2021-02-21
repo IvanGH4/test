@@ -8,6 +8,18 @@
             <li class="nav-item">
                 <a class="nav-link text-light" href="/list">Posts</a>
             </li>
+            <li class="nav-item">
+                <% if(user) { %>
+                    <a class="nav-link text-light" href="/profile">Profile</a>
+                    <% } %>
+            </li>
+            <li class="nav-item">
+                <% if(user) { %>
+                    <a class="btn btn-success nav-link text-light" href="/logout">Log Out</a>  
+                <% } else { %>
+                    <a class="btn btn-success nav-link text-light" href="/login">Log In</a>
+                <% }  %>
+            </li>
         </ul>
     </div>
 </nav>
