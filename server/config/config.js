@@ -13,8 +13,3 @@ if(process.env.NODE_ENV === 'dev') {
 process.env.CADUCIDAD_TOKEN = '48h';
 
 process.env.URLDB = urlDB;
-
-process.env.ISSUER_BASE_URL='https://ivangarcia.us.auth0.com'
-process.env.CLIENT_ID='3mmsy99Yu0bJZOWE1IUNbDJZj9vCQZsG'
-process.env.BASE_URL='http://localhost:3000'
-process.env.SECRET='sdkjfsldjghfjghsjflsajfjfsialsfksad'
