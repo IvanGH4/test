@@ -24,7 +24,7 @@
                 Publish: <%= article.createdAt.toLocaleDateString() %>
               </small>
               <hr />
-              <div class="d-flex justify-content-end align-items-end">
+              <div class="d-flex justify-content-center justify-content-md-end  align-items-center align-items-md-end flex-column flex-md-row">
                 <small class="mx-3">
                   <img class="rounded-circle" width="50" height="50" src="<%= article.userPic %>" alt="userPicture" />
                 </small>
@@ -37,5 +37,7 @@
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
 </body>
 </html>
