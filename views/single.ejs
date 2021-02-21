@@ -23,11 +23,13 @@
               <small class="text-secondary d-flex justify-content-end">
                 Publish: <%= article.createdAt.toLocaleDateString() %>
               </small>
-              <% if(article.userPerson == user.email) { %>
-                <form action="/articles/<%= article.id %>?_method=DELETE" method="POST">
-                  <button type="submit" class="btn btn-danger mt-2">Delete</button>
-                </form>
-              <% } %>
+              <% if(user) { %>
+                <% if(article.userPerson == user.email) { %>
+                  <form action="/articles/<%= article.id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                  </form>
+                <% } %>
+              }
               <hr />
               <div class="d-flex justify-content-center justify-content-md-end  align-items-center align-items-md-end flex-column flex-md-row">
                 <small class="mx-3">
