@@ -30,9 +30,11 @@
                             <%- article.sanitizedHtml %>
                           </p> -->
                           <a href="articles/<%= article.id %>" class="btn btn-primary d-block">Read More</a>
-                        <form action="/articles/<%= article.id %>?_method=DELETE" method="POST">
-                            <button type="submit" class="btn btn-danger mt-2">Delete</button>
-                        </form>
+                          <% if(article.userPerson == user.email) { %>
+                            <form action="/articles/<%= article.id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                            </form>
+                          <% } %>
                           <!-- <a href="#" class="card-link">Card link</a>
                           <a href="#" class="card-link">Another link</a> -->
                         </div>
